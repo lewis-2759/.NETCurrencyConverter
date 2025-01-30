@@ -48,7 +48,7 @@ function filterOutliers(rates) {
 
     const filteredRates = {};
     for (const [currency, rate] of Object.entries(rates)) {
-        if (rate >= lowerBound && rate <= upperBound && rate <= 100) {
+        if (rate >= lowerBound && rate <= upperBound && rate <= 300 && currency !== "USD") {
             filteredRates[currency] = rate;
         }
     }
