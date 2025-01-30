@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="css/site.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Currency Converter</h1>
+    </header>
+    <div id="graph-container">
+        <canvas id="exchangeRatesChart"></canvas>
+    </div>
+    <div id="form-container">
+        <form id="converter-form">
+            <input type="number" id="amount" name="amount" required>
+            <div class="currency-display" id="fromCurrencyDisplay">
+                <select id="fromCurrency" name="fromCurrency" required>
+                    <option value="USD">USD $</option>
+                    <option value="EUR">EUR €</option>
+                    <option value="GBP">GBP £</option>
+                    <option value="JPY">JPY ¥</option>
+                    <option value="AUD">AUD A$</option>
+                    <option value="CAD">CAD C$</option>
+                    <option value="CHF">CHF CHF</option>
+                    <option value="CNY">CNY ¥</option>
+                    <option value="SEK">SEK kr</option>
+                    <option value="NZD">NZD NZ$</option>
+                    <option value="MXN">MXN $</option>
+                    <option value="SGD">SGD S$</option>
+                    <option value="HKD">HKD HK$</option>
+                    <option value="NOK">NOK kr</option>
+                    <option value="KRW">KRW ₩</option>
+                    <option value="TRY">TRY ₺</option>
+                    <option value="INR">INR ₹</option>
+                    <option value="RUB">RUB ₽</option>
+                    <option value="BRL">BRL R$</option>
+                    <option value="ZAR">ZAR R</option>
+                </select>
+            </div>
+            <div class="currency-display" id="toCurrencyDisplay">
+                <select id="toCurrency" name="toCurrency" required>
+                    <option value="USD">USD $</option>
+                    <option value="EUR">EUR €</option>
+                    <option value="GBP">GBP £</option>
+                    <option value="JPY">JPY ¥</option>
+                    <option value="AUD">AUD A$</option>
+                    <option value="CAD">CAD C$</option>
+                    <option value="CHF">CHF CHF</option>
+                    <option value="CNY">CNY ¥</option>
+                    <option value="SEK">SEK kr</option>
+                    <option value="NZD">NZD NZ$</option>
+                    <option value="MXN">MXN $</option>
+                    <option value="SGD">SGD S$</option>
+                    <option value="HKD">HKD HK$</option>
+                    <option value="NOK">NOK kr</option>
+                    <option value="KRW">KRW ₩</option>
+                    <option value="TRY">TRY ₺</option>
+                    <option value="INR">INR ₹</option>
+                    <option value="RUB">RUB ₽</option>
+                    <option value="BRL">BRL R$</option>
+                    <option value="ZAR">ZAR R</option>
+                </select>
+            </div>
+            <div id="result" class="result-box"></div>
+            <button type="submit">Convert</button>
+        </form>
+    </div>
+    <div id="historical">
+        <canvas id="historicalChart"></canvas>
+    </div>
+
+    <script src="js/site.js"></script>
+</body>
+</html>

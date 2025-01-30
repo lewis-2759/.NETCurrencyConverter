@@ -1,0 +1,117 @@
+/* Reset some default browser styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Make the body take up the entire screen */
+body {
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Style the header bar */
+header {
+  width: 100%;
+  background-color: #000;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Center the title at the top */
+h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #fff;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+/* Style the graph container */
+#graph-container {
+  width: 65%;
+  height: auto;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Style the form container */
+#form-container {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Style the form */
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  position: relative;
+}
+
+/* Style the form elements */
+form input, form select, form button {
+  margin: 0 10px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+/* Style the result box */
+.result-box {
+  margin: 0 10px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+form input {
+  width: 150px;
+}
+
+form button {
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background: #555;
+}
+
+/* Style the currency display */
+.currency-display {
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  color: #333;
+}
+
+/* Style the canvas elements */
+canvas {
+  width: 100%;
+  height: 100%;
+}
