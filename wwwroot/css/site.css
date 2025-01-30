@@ -2,14 +2,12 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
-  font-family: Arial, sans-serif;
+  font-family: 'Orbitron', sans-serif;
 }
 
 /* Make the body take up the entire screen */
 body {
-  background-color: #f0f0f0;
+  background-color: #7289da; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,8 +17,9 @@ body {
 /* Style the header bar */
 header {
   width: 100%;
-  background-color: #000;
+  background-color: #23272a;
   padding: 20px 0;
+  margin-bottom: 20px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -39,7 +38,7 @@ h1 {
 #graph-container {
   width: 65%;
   height: auto;
-  background: rgba(255, 255, 255, 0.8);
+  background: #2c2f33;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -79,11 +78,16 @@ form input, form select, form button {
 }
 /* Style the result box */
 .result-box {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 10px;
   padding: 10px;
   font-size: 1em;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 
@@ -114,4 +118,223 @@ form button:hover {
 canvas {
   width: 100%;
   height: 100%;
+}
+
+#exchangeRatesChart {
+  width: 100%;
+  max-width: 1200px;
+  flex-grow: 1;
+  background: #2c2f33; /* Discord graph container color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the form container */
+#form-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Style the currency selection container */
+.currency-selection {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the arrow container */
+.arrow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* Style the arrow */
+.arrow {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+/* Style the switch button */
+#switchButton {
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #7289da; /* Discord button color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#switchButton:hover {
+  background-color: #5b6eae;
+}
+
+/* Style the graph container */
+#graph-container {
+  width: 65%;
+  height: auto;
+  background: #2c2f33; /* Discord graph container color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the form container */
+#form-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Style the currency selection container */
+.currency-selection {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the arrow container */
+.arrow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* Style the arrow */
+.arrow {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+/* Style the switch button */
+#switchButton {
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #7289da;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#switchButton:hover {
+  background-color: #5b6eae;
+}
+
+/* Style the graph container */
+#graph-container {
+  width: auto;
+  height: auto;
+  max-width: 50%;
+  background: #2c2f33; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Style the form container */
+#form-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Style the currency selection container */
+.currency-selection {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the arrow container */
+.arrow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* Style the arrow */
+.arrow {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+/* Style the switch button */
+#switchButton {
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #7289da;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#switchButton:hover {
+  background-color: #5b6eae;
+}
+
+/* Style the graph container */
+#graph-container {
+  width: 65%;
+  height: auto;
+  background: #2c2f33; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure the canvas resizes with the container */
+#exchangeRatesChart {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  #graph-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  #graph-container {
+    width: 100%;
+    padding: 10px;
+  }
 }

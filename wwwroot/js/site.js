@@ -28,7 +28,8 @@ async function fetchExchangeRates() {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        const filteredRates = filterOutliers(data.rates);
+        let filteredRates = filterRates(data.rates);
+        filteredRates = filterOutliers(filteredRates);
         displayExchangeRates(filteredRates);
     } catch (error) {
         document.getElementById('snapshot').innerText = `Error: ${error.message}`;
@@ -48,12 +49,25 @@ function filterOutliers(rates) {
 
     const filteredRates = {};
     for (const [currency, rate] of Object.entries(rates)) {
-        if (rate >= lowerBound && rate <= upperBound && rate <= 300 && currency !== "USD") {
+        if (rate >= lowerBound && rate <= upperBound) {
             filteredRates[currency] = rate;
         }
     }
     return filteredRates;
 }
+
+function filterRates(rates) {
+    const filteredRates = {};
+    for (const currency in rates) {
+        if (currencySymbols.hasOwnProperty(currency)) {
+            if(currency != "USD") {
+            filteredRates[currency] = rates[currency];
+            }
+        }
+    }
+    return filteredRates;
+}
+
 
 function displayExchangeRates(rates) {
     // Convert rates object to an array of [currency, rate] pairs
@@ -72,7 +86,7 @@ function displayExchangeRates(rates) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Exchange Rates',
+                label: 'Exchange Rates for $1 USD',
                 data: data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -152,4 +166,14 @@ document.getElementById('converter-form').addEventListener('submit', async funct
     } catch (error) {
         document.getElementById('result').innerText = `Error: ${error.message}`;
     }
+});
+
+document.getElementById('switchButton').addEventListener('click', function() {
+    const fromCurrency = document.getElementById('fromCurrency');
+    const toCurrency = document.getElementById('toCurrency');
+
+    // Swap the selected values
+    const temp = fromCurrency.value;
+    fromCurrency.value = toCurrency.value;
+    toCurrency.value = temp;
 });
