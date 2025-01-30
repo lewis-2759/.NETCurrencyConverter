@@ -23,7 +23,7 @@ Currency Converter is a web application that allows users to convert amounts bet
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/currency-converter.git
+   git clone https://github.com/lewis-2759/.NETCurrencyConverter.git
 
 
 
