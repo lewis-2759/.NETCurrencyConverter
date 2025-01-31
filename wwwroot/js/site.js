@@ -70,8 +70,26 @@ function filterRates(rates) {
 
 
 function displayExchangeRates(rates) {
+    // Check if rates is an object
+    if (typeof rates !== 'object' || rates === null) {
+        console.error('Invalid input: rates should be an object.');
+        return;
+    }
+
     // Convert rates object to an array of [currency, rate] pairs
     const ratesArray = Object.entries(rates);
+
+    // Validate each rate
+    for (const [currency, rate] of ratesArray) {
+        if (typeof currency !== 'string' || currency.length !== 3) {
+            console.error(`Invalid currency code: ${currency}. Currency codes should be 3-letter strings.`);
+            return;
+        }
+        if (typeof rate !== 'number' || rate <= 0) {
+            console.error(`Invalid rate for ${currency}: ${rate}. Rates should be positive numbers greater than 0.`);
+            return;
+        }
+    }
 
     // Sort the array by rate values
     ratesArray.sort((a, b) => a[1] - b[1]);
@@ -79,6 +97,12 @@ function displayExchangeRates(rates) {
     // Separate the sorted array back into labels and data arrays
     const labels = ratesArray.map(rate => rate[0]);
     const data = ratesArray.map(rate => rate[1]);
+
+    // Check if there is any valid data to display
+    if (labels.length === 0 || data.length === 0) {
+        console.error('No valid exchange rates to display.');
+        return;
+    }
 
     const ctx = document.getElementById('exchangeRatesChart').getContext('2d');
     new Chart(ctx, {
@@ -154,6 +178,10 @@ document.getElementById('converter-form').addEventListener('submit', async funct
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
 
+    // Validate amount so not wasting API CALL
+    if (isNaN(amount) || amount <= 0) {
+        return document.getElementById('result').innerText = '0';    
+    }
     try {
         const response = await fetch(`/api/currency/convert?amount=${amount}&fromCurrency=${fromCurrency}&toCurrency=${toCurrency}`);
         if (!response.ok) {
