@@ -21,13 +21,27 @@
     "ZAR": "R"
 };
 
+// Global variable to store exchange rates
+let exchangeRates = new Map();
+
 async function fetchExchangeRates() {
     try {
-        const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
+        // Fetch the API key from the backend
+        const keyResponse = await fetch('/api/key');
+        const keyData = await keyResponse.json();
+        const apiKey = keyData.apiKey;
+
+        // Fetch exchange rates using the API key
+        const response = await fetch(`http://data.fixer.io/api/latest?access_key=${apiKey}`);
+        console.log(response);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        // Store exchange rates in the Map
+        for (const [currency, rate] of Object.entries(data.rates)) {
+            exchangeRates.set(currency, rate);
+        }
         let filteredRates = filterRates(data.rates);
         filteredRates = filterOutliers(filteredRates);
         displayExchangeRates(filteredRates);
@@ -35,6 +49,7 @@ async function fetchExchangeRates() {
         document.getElementById('snapshot').innerText = `Error: ${error.message}`;
     }
 }
+
 
 function filterOutliers(rates) {
     const values = Object.values(rates);
@@ -60,7 +75,7 @@ function filterRates(rates) {
     const filteredRates = {};
     for (const currency in rates) {
         if (currencySymbols.hasOwnProperty(currency)) {
-            if(currency != "USD") {
+            if (currency !== "USD" && rates[currency] <= 10) {
             filteredRates[currency] = rates[currency];
             }
         }
@@ -127,70 +142,26 @@ function displayExchangeRates(rates) {
     });
 }
 
-async function fetchHistoricalData(fromCurrency, toCurrency) {
-    try {
-        const endDate = new Date();
-        const startDate = new Date();
-        startDate.setMonth(startDate.getMonth() - 1);
-        const response = await fetch(`https://api.exchangerate-api.com/v4/history/${fromCurrency}/${toCurrency}?start_at=${startDate.toISOString().split('T')[0]}&end_at=${endDate.toISOString().split('T')[0]}`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log('Historical data:', data);
-        displayHistoricalData(data.rates, toCurrency);
-    } catch (error) {
-        document.getElementById('historicalChart').innerText = `Error: ${error.message}`;
-    }
-}
-
-function displayHistoricalData(rates, toCurrency) {
-    const labels = Object.keys(rates).sort();
-    const data = labels.map(date => rates[date][toCurrency]);
-    const ctx = document.getElementById('historicalChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: `Exchange Rate for ${toCurrency} over the Last Month`,
-                data: data,
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                borderColor: 'rgba(153, 102, 255, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
 document.addEventListener('DOMContentLoaded', fetchExchangeRates);
 
-document.getElementById('converter-form').addEventListener('submit', async function (event) {
+// Use the stored exchange rates for conversion
+document.getElementById('converter-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const amount = document.getElementById('amount').value;
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
 
-    // Validate amount so not wasting API CALL
+    // Validate amount
     if (isNaN(amount) || amount <= 0) {
         return document.getElementById('result').innerText = '0';    
     }
+
     try {
-        const response = await fetch(`/api/currency/convert?amount=${amount}&fromCurrency=${fromCurrency}&toCurrency=${toCurrency}`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
+        const fromRate = exchangeRates.get(fromCurrency);
+        const toRate = exchangeRates.get(toCurrency);
+        const convertedAmount = (amount / fromRate) * toRate;
         const symbol = currencySymbols[toCurrency] || "";
-        document.getElementById('result').innerText = `${data.convertedAmount}`;
-        await fetchHistoricalData(fromCurrency, toCurrency);
+        document.getElementById('result').innerText = `${symbol}${convertedAmount.toFixed(2)}`;
     } catch (error) {
         document.getElementById('result').innerText = `Error: ${error.message}`;
     }
@@ -205,3 +176,67 @@ document.getElementById('switchButton').addEventListener('click', function() {
     fromCurrency.value = toCurrency.value;
     toCurrency.value = temp;
 });
+
+
+//FOR TESTING
+function printExchangeRates() {
+    console.log('Exchange Rates:');
+    exchangeRates.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+    });
+}
+
+
+//COMMENTS FORM
+document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const name = document.getElementById('name').value.trim();
+    const feedback = document.getElementById('feedback').value.trim();
+
+    // Validate input
+    if (name.length === 0) {
+        alert('Name is required.');
+        return;
+    }
+    if (feedback.length === 0) {
+        alert('Comment is required.');
+        return;
+    }
+
+    // Sanitize input
+    const sanitizedName = sanitizeInput(name);
+    const sanitizedFeedback = sanitizeInput(feedback);
+
+    // Submit form data
+    fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: sanitizedName, feedback: sanitizedFeedback })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(errorData.message || 'Invalid Format or an error occurred while saving your feedback. Please try again later.');
+            });
+        }
+        return response.text();
+    })
+    .then(data => {
+        alert('Form submitted successfully');
+        document.getElementById('formResponse').innerText = data;
+    })
+    .catch(error => {
+        alert('Invalid Format or an error occurred while saving your feedback. Please try again later.');
+        document.getElementById('formResponse').innerText = `Error: ${error.message}`;
+    });
+});
+
+function sanitizeInput(input) {
+    const element = document.createElement('div');
+    element.innerText = input;
+    return element.innerHTML;
+}

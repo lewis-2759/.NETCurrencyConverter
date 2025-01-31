@@ -62,7 +62,7 @@ app.post('/api/feedback', [
         res.status(200).send('Feedback received');
     } catch (error) {
         console.error('Error saving feedback:', error);
-        res.status(500).send('Error saving feedback');
+        res.status(500).json({ message: 'An error occurred while saving your feedback. Please try again later.' });
     }
 });
 
