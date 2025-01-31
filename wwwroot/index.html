@@ -73,10 +73,21 @@
             <button type="submit">Convert</button>
         </form>
     </div>
-    <div id="historical">
-        <canvas id="historicalChart"></canvas>
+    <div id="contactForm">
+        <h2>Have Any Ideas?</h2>
+        <form id="feedbackForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="feedback">Comment:</label>
+            <textarea id="feedback" name="feedback" required></textarea>
+            <br>
+            <button type="submit">Submit</button>
+            <div id="loadingIndicator" style="display: none;">Submitting...</div>
+        </form>
+        <div id="formResponse"></div>
     </div>
-
+    </div>
     <script src="js/site.js"></script>
 </body>
 </html>

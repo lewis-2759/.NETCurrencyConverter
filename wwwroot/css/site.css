@@ -11,7 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  justify-content: center;
 }
 
 /* Style the header bar */
@@ -325,6 +325,14 @@ canvas {
   height: auto !important;
 }
 
+#feedback {
+  width: auto;
+  height: 100px;
+  resize: auto;
+}
+h2 {
+  text-align: center;
+}
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
   #graph-container {
