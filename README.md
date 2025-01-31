@@ -6,28 +6,86 @@ Currency Converter is a web application that allows users to convert amounts bet
 
 ## Features
 
-- Real-time exchange rate conversion
-- Support for many currencies
-- Historical exchange rate data visualization
-- User-friendly interface with responsive design
+- Convert currencies using real-time exchange rates from Fixer.io.
+- Submit feedback through a contact form to personal DB, for user input validation/sanitation practice.
+- User-friendly interface with responsive design.
+
+## Security Best Practices
+
+- Store sensitive information in environment variables.
+- Validate and sanitize all user inputs.
+- Use HTTPS to encrypt data in transit.
+- Use secure HTTP headers with `helmet`.
+- Implement rate limiting with `express-rate-limit`.
+- Ensure proper authentication and authorization.
+- Avoid exposing stack traces and detailed error messages to users.
+
+## Prerequisites
+
+1. **Node.js**: Ensure you have Node.js installed. You can download it from [nodejs.org](https://nodejs.org/).
+2. **MongoDB**: Ensure you have MongoDB installed and running. You can download it from [mongodb.com](https://www.mongodb.com/try/download/community).
+3. **Fixer.io API Key**: Sign up at [fixer.io](https://fixer.io/) to get an API key for the exchange rate API.
+
+## Steps to Run the Project
+
+1. **Clone the Repository**:
+
+    ```sh
+    git clone https://github.com/lewis-2759/.NETCurrencyConverter.git
+    ```
+
+2. **Install Dependencies**:
+
+    ```sh
+    npm install
+    ```
+
+3. **Create a `.env` File**:
+
+    Create a `.env` file in the root directory of your project and add your Fixer API key to it.
+    Also add your MongoDB URI, 27017 is default
+
+    ```env
+    API_KEY=your_api_key_here
+    MONGODB_URI=mongodb://localhost:27017/feedbackDB 
+    ```
+
+4. **Start MongoDB**:
+
+    Ensure MongoDB is running. You can start it using the following command:
+
+    ```sh
+    brew services start mongodb/brew/mongodb-community
+    ```
+
+5. **Run the Server**:
+
+    Start the server using Node.js.
+
+    ```sh
+    node server.js
+    ```
+
+6. **Open the Application**:
+
+    Open your browser and navigate to `http://localhost:3000` to use the application.
+
+## Project Structure
+
+- `server.js`: The main server file.
+- `public/`: Directory containing static files (HTML, CSS, JS).
+- `.env`: Environment variables file (not included in the repository).
 
 ## Frameworks and Languages Used
 
 - .NET
-- HTML
-- CSS
-- JavaScript
-
-## Installation
-
-1. Clone the repository:
-
-   ```sh
-   git clone https://github.com/lewis-2759/.NETCurrencyConverter.git
-
-
+- Node.js
+- dotenv
+- MongoDB
+- Express.js
+- HTML, CSS, JavaScript
 
 ## Acknowledgements
 
-- ExchangeRate-API for providing the exchange rate data.
+- Fixer.io for providing the exchange rate data.
 - Chart.js for the charting library.
