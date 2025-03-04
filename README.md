@@ -56,6 +56,16 @@ Currency Converter is a web application that allows users to convert amounts bet
 
     ```sh
     brew services start mongodb/brew/mongodb-community
+
+    ```
+
+    Here is how to view data in feedback if you are new to MongoDB:
+
+    ```sh
+    mongosh
+    use feedback //or name defined in .env file
+    db.feedbacks.find().pretty()
+    brew services stop mongodb-community //to stop db running
     ```
 
 5. **Run the Server**:
@@ -73,16 +83,15 @@ Currency Converter is a web application that allows users to convert amounts bet
 ## Project Structure
 
 - `server.js`: The main server file.
-- `public/`: Directory containing static files (HTML, CSS, JS).
+- `wwwroot/`: Directory containing static files (HTML, CSS, JS).
 - `.env`: Environment variables file (not included in the repository for obvious reasons).
 
 ## Frameworks and Languages Used
 
-- .NET
 - Node.js
+- Express.js
 - dotenv
 - MongoDB
-- Express.js
 - HTML, CSS, JavaScript
 
 ## Acknowledgements

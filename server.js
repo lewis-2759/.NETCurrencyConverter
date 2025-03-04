@@ -10,12 +10,11 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const port = 3000;
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+// db
+mongoose.connect(process.env.MONGODB_URI, {})
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet()); // Secure HTTP headers
@@ -26,7 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Rate limiting
+//
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs

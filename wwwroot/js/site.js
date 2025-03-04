@@ -21,24 +21,23 @@
     "ZAR": "R"
 };
 
-// Global variable to store exchange rates
+
 let exchangeRates = new Map();
 
 async function fetchExchangeRates() {
     try {
-        // Fetch the API key from the backend
         const keyResponse = await fetch('/api/key');
         const keyData = await keyResponse.json();
         const apiKey = keyData.apiKey;
 
-        // Fetch exchange rates using the API key
         const response = await fetch(`http://data.fixer.io/api/latest?access_key=${apiKey}`);
         console.log(response);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        // Store exchange rates in the Map
+
+
         for (const [currency, rate] of Object.entries(data.rates)) {
             exchangeRates.set(currency, rate);
         }
@@ -85,16 +84,13 @@ function filterRates(rates) {
 
 
 function displayExchangeRates(rates) {
-    // Check if rates is an object
     if (typeof rates !== 'object' || rates === null) {
         console.error('Invalid input: rates should be an object.');
         return;
     }
 
-    // Convert rates object to an array of [currency, rate] pairs
     const ratesArray = Object.entries(rates);
 
-    // Validate each rate
     for (const [currency, rate] of ratesArray) {
         if (typeof currency !== 'string' || currency.length !== 3) {
             console.error(`Invalid currency code: ${currency}. Currency codes should be 3-letter strings.`);
@@ -106,14 +102,11 @@ function displayExchangeRates(rates) {
         }
     }
 
-    // Sort the array by rate values
     ratesArray.sort((a, b) => a[1] - b[1]);
 
-    // Separate the sorted array back into labels and data arrays
     const labels = ratesArray.map(rate => rate[0]);
     const data = ratesArray.map(rate => rate[1]);
 
-    // Check if there is any valid data to display
     if (labels.length === 0 || data.length === 0) {
         console.error('No valid exchange rates to display.');
         return;
@@ -125,7 +118,7 @@ function displayExchangeRates(rates) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Exchange Rates for $1 USD',
+                label: 'Exchange Rates for €1 EUR',
                 data: data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -151,7 +144,7 @@ document.getElementById('converter-form').addEventListener('submit', function(ev
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
 
-    // Validate amount
+
     if (isNaN(amount) || amount <= 0) {
         return document.getElementById('result').innerText = '0';    
     }
@@ -171,7 +164,6 @@ document.getElementById('switchButton').addEventListener('click', function() {
     const fromCurrency = document.getElementById('fromCurrency');
     const toCurrency = document.getElementById('toCurrency');
 
-    // Swap the selected values
     const temp = fromCurrency.value;
     fromCurrency.value = toCurrency.value;
     toCurrency.value = temp;
@@ -191,11 +183,9 @@ function printExchangeRates() {
 document.getElementById('feedbackForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Get form values
     const name = document.getElementById('name').value.trim();
     const feedback = document.getElementById('feedback').value.trim();
 
-    // Validate input
     if (name.length === 0) {
         alert('Name is required.');
         return;
@@ -205,11 +195,9 @@ document.getElementById('feedbackForm').addEventListener('submit', function(even
         return;
     }
 
-    // Sanitize input
     const sanitizedName = sanitizeInput(name);
     const sanitizedFeedback = sanitizeInput(feedback);
 
-    // Submit form data
     fetch('/api/feedback', {
         method: 'POST',
         headers: {
