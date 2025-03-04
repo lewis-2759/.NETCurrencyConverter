@@ -338,6 +338,30 @@ h2 {
   #graph-container {
     width: 90%;
   }
+  #converter-form{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+  #feedbackForm {
+    display: flex;
+    flex-direction:column;
+    width: auto;
+  }
+  #feedback{
+    width: 100%;
+    height: 200px;
+    resize: auto;
+  }
+  #switchButton {
+    margin-bottom: 10px;
+  }
+  .result-box {
+    width: auto;
+  }
+  #amount{
+    width:auto;
+  }
 }
 
 @media (max-width: 480px) {
