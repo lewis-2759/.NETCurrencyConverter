@@ -88,7 +88,7 @@ Currency Converter is a web application that allows users to convert amounts bet
 
 ## To-Do
 
-- Build an admin user that can view the comments
+- Add a section to view all feedback below the form.
 
 ## Frameworks and Languages Used
 
