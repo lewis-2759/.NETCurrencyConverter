@@ -59,7 +59,6 @@ Currency Converter is a web application that allows users to convert amounts bet
 
     ```
 
-
     View database using shell:
 
     ```sh
