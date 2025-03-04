@@ -25,17 +25,16 @@ app.use((req, res, next) => {
     next();
 });
 
-//
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
 
-// Serve static files from the "wwwroot" directory
+// static files
 app.use(express.static(path.join(__dirname, 'wwwroot')));
 
-// Define a schema and model for feedback
+// db schema
 const feedbackSchema = new mongoose.Schema({
     name: String,
     feedback: String
@@ -65,17 +64,14 @@ app.post('/api/feedback', [
     }
 });
 
-// Endpoint to serve the API key
 app.get('/api/key', (req, res) => {
     res.json({ apiKey: process.env.API_KEY });
 });
 
-// Serve the index.html file for the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'wwwroot', 'index.html'));
 });
 
-// Start the server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
