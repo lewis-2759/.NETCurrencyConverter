@@ -59,13 +59,13 @@ Currency Converter is a web application that allows users to convert amounts bet
 
     ```
 
-    Here is how to view data in feedback if you are new to MongoDB:
+
+    View database using shell:
 
     ```sh
     mongosh
     use feedback //or name defined in .env file
     db.feedbacks.find().pretty()
-    brew services stop mongodb-community //to stop db running
     ```
 
 5. **Run the Server**:
@@ -85,6 +85,10 @@ Currency Converter is a web application that allows users to convert amounts bet
 - `server.js`: The main server file.
 - `wwwroot/`: Directory containing static files (HTML, CSS, JS).
 - `.env`: Environment variables file (not included in the repository for obvious reasons).
+
+## To-Do
+
+- Build an admin user that can view the comments
 
 ## Frameworks and Languages Used
 

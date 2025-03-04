@@ -17,9 +17,9 @@ mongoose.connect(process.env.MONGODB_URI, {})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet()); // Secure HTTP headers
+app.use(helmet()); 
 
-// Content Security Policy
+
 app.use((req, res, next) => {
     res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; connect-src 'self' http://data.fixer.io");
     next();
